@@ -1,8 +1,8 @@
 import React from "react";
 import style from "./YandexMap.module.css"
-import {YMaps, Map, Placemark, Polygon} from 'react-yandex-maps';
-import ReactDOM from 'react-dom';
-import AlertDescription from "../AlertDescription/AlertDescription";
+import {YMaps, Map, Placemark, Polygon, Polyline, Rectangle} from 'react-yandex-maps';
+// import ReactDOM from 'react-dom';
+// import AlertDescription from "../AlertDescription/AlertDescription";
 
 class YandexMap extends React.Component {
 
@@ -16,8 +16,10 @@ class YandexMap extends React.Component {
         [57.483593, 54.547379],
         [57.024849, 57.550066],
     ]
+
     //координаты Кудымарского
-    coordinPolyg =[
+
+    coordPolygon = [
         [59.523145, 55.392910],
         [59.495356, 55.575470],
         [59.372980, 55.522361],
@@ -153,8 +155,8 @@ class YandexMap extends React.Component {
         [59.334707, 55.193415],
         [59.444243, 55.241001],
         [59.523145, 55.392910]
-    ]
-    // styleAlert = "none";
+    ];
+
 
     ForestDescription = [
         {
@@ -194,8 +196,8 @@ class YandexMap extends React.Component {
             S: 100,
         },
         {
-            id:4,
-            XY:[59.667439, 56.315279],
+            id: 4,
+            XY: [59.667439, 56.315279],
             img1: "",
             img2: "",
             Name: "подсолнечник",
@@ -203,8 +205,8 @@ class YandexMap extends React.Component {
             S: 100,
         },
         {
-            id:4,
-            XY:[59.072559, 54.342995],
+            id: 4,
+            XY: [59.072559, 54.342995],
             img1: "",
             img2: "",
             Name: "подсолнечник",
@@ -214,13 +216,19 @@ class YandexMap extends React.Component {
 
     ];
 
-    Open=(id)=>{
-        let NewID=id;
+    Open = (id) => {
+        let NewID = id;
         // this.styleAlert="flex";
-        this.hisTrue=true
+        this.hisTrue = true
     }
-    hisTrue=false;
-
+    hisTrue = false;
+    onDrag = () => {
+        const response = this.ymaps
+            .geoQuery(this.mapObject.geoObjects)
+            .searchInside(this.rectangleObject.geometry);
+        console.log(response.getLength());
+        console.log(this.mapObject);
+    };
     render() {
         return (
             <div className={style.container}>
@@ -231,20 +239,27 @@ class YandexMap extends React.Component {
                                 this.Open(id)
                                 //тут должно быть куда больше выходящих данных, но из за ленивого меня , все пошло не по плану
                                 alert(
-                                    el.HasTrees ? "Имеет деревья":"без деревьев"
+                                    el.HasTrees ? "Имеет деревья" : "без деревьев"
                                 )
                             }}
                             geometry={el.XY}/>)}
+                        {/*   вывод полигона */}
+                        coordPolygon(el => <Polyline
+                            geometry={this.coordPolygon}
+                            options = {{
+                                fillColor: '#6699ff',
+                                strokeColor: "#000000",
+                                strokeWidth: 5
+                            }}
+                        />
                     </Map>
                     {
                         this.hisTrue ? <div className={style.AlertContainer}>
-                        </div>: <div className={style.loading}>
+                        </div> : <div className={style.loading}>
                             <img src={require("../../img/gif.gif")} alt="фокус"/>
                         </div>
                     }
-                    {/*<Polygon*/}
 
-                    {/*/>*/}
                 </YMaps>
             </div>
         )

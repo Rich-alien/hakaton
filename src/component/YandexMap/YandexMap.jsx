@@ -53,7 +53,7 @@ class YandexMap extends React.Component {
             img1: "",
             img2: "",
             Name: "подсолнечник",
-            HasTrees: true,
+            HasTrees: false,
             S: 100,
         },
 
@@ -71,11 +71,15 @@ class YandexMap extends React.Component {
             <div className={style.container}>
                 <YMaps>
                     <Map className={style.Map} defaultState={this.mapData}>
-                        {this.coordination.map((el, id) => <Placemark
+                        {this.ForestDescription.map((el, id) => <Placemark
                             onClick={() => {
                                 this.Open(id)
+                                //тут должно быть куда больше выходящих данных, но из за ленивого меня , все пошло не по плану
+                                alert(
+                                    el.HasTrees ? "Имеет деревья":"без деревьев"
+                                )
                             }}
-                            geometry={el}/>)}
+                            geometry={el.XY}/>)}
                     </Map>
                     {
                         this.hisTrue ? <div className={style.AlertContainer}>

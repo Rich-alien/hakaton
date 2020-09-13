@@ -1,24 +1,26 @@
 import React from "react";
 import style from "./YandexMap.module.css"
-import {YMaps, Map, Placemark, Polygon, Polyline, Rectangle} from 'react-yandex-maps';
+import {YMaps, Map, Placemark, Polyline} from 'react-yandex-maps';
+import AlertDescription from "../AlertDescription/AlertDescription";
 // import ReactDOM from 'react-dom';
 // import AlertDescription from "../AlertDescription/AlertDescription";
 
 class YandexMap extends React.Component {
-
+    state = {
+        showComponent : false,
+        idDesc:0
+    }
     mapData = {
         center: [58.654520, 56.275120],
         zoom: 6,
     };
-    coordination = [
-        [60.733070, 56.703531],
-        [60.730479, 56.700604],
-        [57.483593, 54.547379],
-        [57.024849, 57.550066],
-    ]
-
+    // coordination = [
+    //     [60.733070, 56.703531],
+    //     [60.730479, 56.700604],
+    //     [57.483593, 54.547379],
+    //     [57.024849, 57.550066],
+    // ]
     //координаты Кудымарского
-
     coordPolygon = [
         [59.523145, 55.392910],
         [59.495356, 55.575470],
@@ -156,8 +158,6 @@ class YandexMap extends React.Component {
         [59.444243, 55.241001],
         [59.523145, 55.392910]
     ];
-
-
     ForestDescription = [
         {
             id: 0,
@@ -215,51 +215,64 @@ class YandexMap extends React.Component {
         }
 
     ];
-
-    Open = (id) => {
-        let NewID = id;
-        // this.styleAlert="flex";
-        this.hisTrue = true
-    }
+    // Open = (id) => {
+    //     // let NewID = id;
+    //     // this.styleAlert="flex";
+    //     this.hisTrue = true
+    // }
     hisTrue = false;
-    onDrag = () => {
-        const response = this.ymaps
-            .geoQuery(this.mapObject.geoObjects)
-            .searchInside(this.rectangleObject.geometry);
-        console.log(response.getLength());
-        console.log(this.mapObject);
-    };
+
+    _onButtonClick(event,id) {
+        event.preventDefault();
+
+        this.setState({
+            ...this.state,
+            showComponent: !this.state.showComponent,
+            idDesc: this.state.idDesc = id,
+
+
+        })
+        console.log("button clicked", this.state.idDesc);
+    }
+
+    // this.Open(id)
+    //                                 alert(
+    //                                     el.HasTrees ? "Имеет деревья" : "без деревьев"
+    //                                 )
     render() {
         return (
             <div className={style.container}>
                 <YMaps>
                     <Map className={style.Map} defaultState={this.mapData}>
                         {this.ForestDescription.map((el, id) => <Placemark
-                            onClick={() => {
-                                this.Open(id)
-                                //тут должно быть куда больше выходящих данных, но из за ленивого меня , все пошло не по плану
-                                alert(
-                                    el.HasTrees ? "Имеет деревья" : "без деревьев"
-                                )
-                            }}
+                            key={id}
+                            onClick={
+                                (event) => this._onButtonClick(event,id)
+                            }
                             geometry={el.XY}/>)}
+                        {this.state.showComponent ? <AlertDescription idForest={this.state.idDesc}/> : null}
+
+
                         {/*   вывод полигона */}
-                        coordPolygon(el => <Polyline
-                            geometry={this.coordPolygon}
-                            options = {{
-                                fillColor: '#6699ff',
-                                strokeColor: "#000000",
-                                strokeWidth: 5
-                            }}
+                        <Polyline geometry={this.coordPolygon}
+                                  options={{
+                                      fillColor: '#6699ff',
+                                      strokeColor: "#000000",
+                                      strokeWidth: 5
+                                  }}
                         />
                     </Map>
                     {
-                        this.hisTrue ? <div className={style.AlertContainer}>
-                        </div> : <div className={style.loading}>
-                            <img src={require("../../img/gif.gif")} alt="фокус"/>
-                        </div>
+                        this.hisTrue ?
+                            <div className={style.AlertContainer}></div> :
+                            <div className={style.loading}>
+                                <img src={require("../../img/gif.gif")} alt="фокус"/>
+                            </div>
                     }
+                    {/*    <NavLink to='/description'>
 
+                        </NavLink>
+                */}
                 </YMaps>
             </div>
         )

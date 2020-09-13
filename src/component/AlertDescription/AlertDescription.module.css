@@ -1,6 +1,7 @@
 .container{
+ background-color: #fff;
    border:3px solid black;
-    width: 600px;
+    width: 500px;
     height: 100%;
     position: absolute;
     top: 0;
@@ -9,20 +10,42 @@
 }
 .img1{
  z-index: 100;
- width: 300px;
- height: 250px;
+ width: 250px;
+ height: 200px;
+}
+.textAlert{
+ margin: 0;
 }
 .img2{
  z-index: 100;
- width: 300px;
- height: 250px;
+ width: 250px;
+ height: 200px;
 }
 .SP{
- color: red;
+ color: black;
  font-size: 30px;
  font-weight: 900;
  margin: 0 10px 0 0;
 }
 .textContainer{
  display: flex;
+}
+.btnContainer{
+ padding: 10px;
+ display: flex;
+ justify-content: space-between;
+}
+.btn{
+ border: none;
+ border-radius: 10px;
+}
+.btnYes{
+ background-color: green;
+}
+.btnNo{
+ background-color: red;
+}
+.btnBlock{
+ background-color: black;
+ color: white;
 }

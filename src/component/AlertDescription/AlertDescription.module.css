@@ -1,9 +1,28 @@
 .container{
    border:3px solid black;
-    width: 500px;
+    width: 600px;
     height: 100%;
     position: absolute;
     top: 0;
     z-index: 100;
 
+}
+.img1{
+ z-index: 100;
+ width: 300px;
+ height: 250px;
+}
+.img2{
+ z-index: 100;
+ width: 300px;
+ height: 250px;
+}
+.SP{
+ color: red;
+ font-size: 30px;
+ font-weight: 900;
+ margin: 0 10px 0 0;
+}
+.textContainer{
+ display: flex;
 }

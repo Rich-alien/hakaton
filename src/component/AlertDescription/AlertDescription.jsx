@@ -2,12 +2,7 @@ import React from "react";
 import style from "./AlertDescription.module.css";
 
 class AlertDescription extends React.Component{
-    constructor(props) {
-        super(props);
 
-
-
-    }
     ForestDescription = [
         {
             id:0,
@@ -50,8 +45,8 @@ class AlertDescription extends React.Component{
     render() {
         return(
             <div className={style.container}>
-                {/*{ alert(this.props.id)}*/}
-                {console.log(this.props.idForest)}
+
+
             </div>
         )
     }

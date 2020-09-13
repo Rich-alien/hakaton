@@ -86,15 +86,30 @@ class AlertDescription extends React.Component {
                 {/*            className={style.img2}/>)*/}
                 {/*    })*/}
                 {/*}*/}
+                <p className={style.textAlert}>2019год</p>
                 <img src={require("../../img/imgTree/подсолнечник1.png")} alt="1" className={style.img1}/>
                 <img src={require("../../img/imgTree/подсолнечник2.PNG")} alt="2" className={style.img2}/>
+                <p className={style.textAlert}>2020год</p>
                 <img src={require("../../img/imgTree/соликамский1.PNG")} alt="2" className={style.img2}/>
                 <img src={require("../../img/imgTree/соликамский2.PNG")} alt="2" className={style.img2}/>
-                <button onClick={()=>{
-                    alert("спасибо, что проверили")
-                }}>
-                    Данные верны!
-                </button>
+                <p className={style.textAlert}>Произошли за это время какие нибудь изменения ?</p>
+                <div className={style.btnContainer}>
+                    <button className={`${style.btnYes} ${style.btn}`} onClick={()=>{
+                        alert("спасибо, что проверили")
+                    }}>
+                        Подтвердить
+                    </button>
+                    <button className={`${style.btnNo} ${style.btn}`} onClick={()=>{
+                        alert("спасибо, что проверили")
+                    }}>
+                        Отклонить
+                    </button>
+                    <button className={`${style.btnBlock} ${style.btn}`} onClick={()=>{
+                        alert("спасибо, что проверили")
+                    }}>
+                       Заблокировать
+                    </button>
+                </div>
                 <div className={style.textContainer}>
                     <p className={style.SP}>{this.state.ForestDescription[this.idF].S}Га</p>
                     <p className={style.SP}>{this.state.ForestDescription[this.idF].Name}</p>
